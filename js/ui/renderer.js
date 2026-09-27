@@ -998,8 +998,8 @@ function renderComparatorView() {
     const rows = [
       {
         label: "Nivel de Mazmorra y Dimensión",
-        m: "Nivel 100 &bull; Enutrosor",
-        n: "Nivel 220 &bull; Enutrosor",
+        m: "Nivel 100 &bull; Anutropía",
+        n: "Nivel 220 &bull; Anutropía",
         r: "Nivel 220 &bull; Sramvil",
         v: "Nivel 220 &bull; Osavora"
       },

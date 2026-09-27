@@ -2,8 +2,8 @@
 
 Herramienta técnica modular diseñada para el cálculo matemático preciso, optimización de conjuntos de sabiduría y análisis de rentabilidad económica en las mazmorras de leveo dimensional de **Dofus Unity**:
 
-* **Fábrica de Malefíscof** *(Enutrosor • Nivel 100)*
-* **Palacio del Rey Nidas** *(Enutrosor • Nivel 220)*
+* **Fábrica de Malefíscof** *(Anutropía • Nivel 100)*
+* **Palacio del Rey Nidas** *(Anutropía • Nivel 220)*
 * **Trono de la Corte Tenebrosa — Reina de los Ladrones** *(Sramvil • Nivel 220)*
 * **Coto del Venerable — Venerable Durmiente** *(Osavora • Nivel 220)*
 

@@ -2,7 +2,7 @@
  * Motor de Simulación y Fórmulas Matemáticas de Experiencia (Dofus Unity)
  * 
  * Modela el cálculo de experiencia combate a combate:
- * - Regla del tercio (Règle du tiers): ceil(MaxLevel / 3) para miembros significativos
+ * - Regla del tercio: ceil(MaxLevel / 3) para miembros significativos
  * - Multiplicadores de grupo oficiales según miembros válidos (DOFUS_GROUP_COEFFS)
  * - Distribución de cuota por nivel: (Level / TotalGroupLevel)
  * - Coeficiente de relación nivel grupo vs monstruos
