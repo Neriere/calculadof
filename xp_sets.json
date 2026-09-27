@@ -1,14 +1,14 @@
 {
   "version": "1.0",
   "app": "Calculadora XP Dofus Unity",
-  "exportedAt": "2026-09-27T02:06:46.205Z",
+  "exportedAt": "2026-09-27T02:18:15.957Z",
   "activeProfileId": "prof_1788918086710_a0xwj",
   "profiles": [
     {
       "id": "prof_1788918086710_a0xwj",
       "name": "Configuración Principal",
       "createdAt": "2026-09-09T01:41:26.710Z",
-      "updatedAt": "2026-09-27T02:06:46.053Z",
+      "updatedAt": "2026-09-27T02:18:15.802Z",
       "settings": {
         "activeDungeon": "malefisk",
         "activeWisdomSet": 1,
