@@ -11,15 +11,12 @@ Herramienta técnica modular diseñada para el cálculo matemático preciso, opt
 
 ## Modos de Ejecución y Requisitos
 
-El proyecto cuenta con arquitectura **dual-compatible**: puede ejecutarse de forma 100% independiente sin instalar nada, o mediante servidor de desarrollo con Vite.
-
-### Opción 1: Ejecución Directa (Sin Instalación ni Dependencias)
-Ideal para usuarios finales o para uso portátil en cualquier equipo.
+### Opción 1: Ejecución Directa 
 
 * **Requisitos:** Ninguno. Solo un navegador web moderno (Edge, Chrome, Firefox, Opera, Brave o Safari).
 * **Cómo usarlo:**
   1. Descarga o clona el repositorio.
-  2. Haz doble clic sobre el archivo `index.html` (o haz clic derecho &rarr; *Abrir con* &rarr; tu navegador habitual).
+  2. Haz doble clic sobre el archivo `index.html`.
 * **Persistencia:** Al ejecutarse como archivo local (`file:///`), los perfiles y niveles modificados se guardan automáticamente en el almacenamiento local del navegador (`localStorage`) y pueden exportarse o importarse en formato JSON (`xp_sets.json`) con un solo clic.
 
 ---
@@ -58,13 +55,11 @@ npm run build
 2. **Tabla Técnica de Monstruos por Mazmorra:**
    * Catálogo completo con ilustraciones individuales de los 24 monstruos de las 4 familias.
    * Desglose de experiencia base por monstruo según rango (R1 a R5/R6).
-   * Identificación de monstruos de experiencia fija (*Anfibuco* e *Hiperpótamo*, 121.000 XP plana) vs monstruos con escalado dinámico.
+   * Identificación de monstruos de experiencia fija (*Anfibuco* e *Hiperpótamo*, 121.000 XP plana) vs monstruos con escalado dinámico. Cualquier cambio se debe realizar manualmente en el archivos dungeonsData.js
    * Cálculo de XP base acumulada del combate en 5 oleadas según el tamaño del botín seleccionado.
 
 3. **Editor de Conjuntos de Sabiduría (Set 1 vs Set 2):**
-   * Configuración de 17 tramos de progresión (Nivel 50 a 199).
-   * Comparativa visual entre Set 1 (Económico/Base) y Set 2 (Optimizado).
-   * Cálculo en vivo del delta de sabiduría, ventaja porcentual de XP, puntos de estadísticas base y rango activo de niveles.
+   * Comparativa visual entre Set 1 y Set 2 .
    * Edición directa sobre la tabla y guardado inmediato.
 
 4. **Comparador de Mazmorras y Rentabilidad:**
@@ -72,7 +67,6 @@ npm run build
    * Estimación de rondas necesarias de nivel inicial a 199 y de 199 a 200.
    * Tiempo total estimado de leveo.
    * Presupuesto acumulado de llaves por mula y por grupo completo de 8 jugadores.
-   * Eficiencia de coste calculada en **Kamas por Millón de XP** y tasa de velocidad horaria (**M XP / hora**).
 
 5. **Gestor de Perfiles y Persistencia JSON:**
    * Múltiples configuraciones guardadas con nombres personalizados.
@@ -110,27 +104,3 @@ Calculadora de XP/
 ```
 
 ---
-
-## Cómo Subir este Proyecto a GitHub
-
-Sigue estos pasos en tu terminal (PowerShell o Git Bash) desde la carpeta del proyecto:
-
-```bash
-# 1. Inicializar el repositorio Git local
-git init
-
-# 2. Agregar todos los archivos necesarios (el .gitignore excluirá automáticamente node_modules y dist)
-git add .
-
-# 3. Crear el primer commit
-git commit -m "feat: Calculadora de XP Dofus Unity modular con soporte dual y catálogo de monstruos"
-
-# 4. Renombrar la rama principal a main
-git branch -M main
-
-# 5. Vincular con tu repositorio remoto de GitHub (reemplaza TU_USUARIO y TU_REPOSITORIO)
-git remote add origin https://github.com/TU_USUARIO/TU_REPOSITORIO.git
-
-# 6. Subir el proyecto a GitHub
-git push -u origin main
-```
