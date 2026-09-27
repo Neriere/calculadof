@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de XP Dofus Unity | Malefíscof &bull; Nidas &bull; Reina &bull; Venerable</title>
+  <meta name="description" content="Calculadora avanzada de experiencia combate a combate para Dofus Unity. Soporte para Fábrica de Malefíscof, Palacio del Rey Nidas, Trono de la Corte Tenebrosa (Reina de los Ladrones) y Coto del Venerable (Osavora) con comparador de rentabilidad económica y tiempo.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="container">
+    <header class="compact-header">
+      <div class="compact-title">
+        <span class="pulse-dot"></span>
+        <h1 id="main-dungeon-heading">Calculadora XP &bull; Fábrica de Malefíscof</h1>
+      </div>
+      <span class="compact-tag" id="main-dungeon-tag">Enutrosor &bull; Nivel 100</span>
+    </header>
+
+    <!-- Selector de Mazmorras y Comparador de Rentabilidad -->
+    <nav class="dungeon-tabs-nav" aria-label="Seleccionar Mazmorra">
+      <button type="button" class="dungeon-tab active" data-dungeon="malefisk" id="tab-malefisk" onclick="switchDungeon('malefisk')">
+        <span class="tab-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/></svg>
+        </span>
+        <div class="tab-text">
+          <span class="tab-title">Fábrica de Malefíscof</span>
+          <span class="tab-subtitle">Lvl 100 &bull; Enutrosor</span>
+        </div>
+        <span class="tab-badge">1 Carry &bull; ~3k K</span>
+      </button>
+      <button type="button" class="dungeon-tab" data-dungeon="nidas" id="tab-nidas" onclick="switchDungeon('nidas')">
+        <span class="tab-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 4 3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14"/></svg>
+        </span>
+        <div class="tab-text">
+          <span class="tab-title">Palacio del Rey Nidas</span>
+          <span class="tab-subtitle">Lvl 200 &bull; Enutrosor</span>
+        </div>
+        <span class="tab-badge">4 Carries &bull; ~35k K</span>
+      </button>
+      <button type="button" class="dungeon-tab" data-dungeon="reina" id="tab-reina" onclick="switchDungeon('reina')">
+        <span class="tab-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/><line x1="13" y1="19" x2="19" y2="13"/><line x1="16" y1="16" x2="20" y2="20"/><line x1="19" y1="21" x2="21" y2="19"/></svg>
+        </span>
+        <div class="tab-text">
+          <span class="tab-title">Trono de la Corte Tenebrosa</span>
+          <span class="tab-subtitle">Lvl 200 &bull; Sramvil (Reina de los Ladrones)</span>
+        </div>
+        <span class="tab-badge">4 Carries &bull; ~60k K</span>
+      </button>
+      <button type="button" class="dungeon-tab" data-dungeon="venerable" id="tab-venerable" onclick="switchDungeon('venerable')">
+        <span class="tab-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22v-7"/><path d="M9 18H5a2 2 0 0 1-2-2V8a5 5 0 0 1 10 0"/><path d="M15 18h4a2 2 0 0 0 2-2V8a5 5 0 0 0-10 0"/><circle cx="12" cy="7" r="3"/></svg>
+        </span>
+        <div class="tab-text">
+          <span class="tab-title">Coto del Venerable</span>
+          <span class="tab-subtitle">Lvl 200 &bull; Osavora (Venerable Durmiente)</span>
+        </div>
+        <span class="tab-badge badge-osavora-tab">4 Carries &bull; ~40k K</span>
+      </button>
+      <button type="button" class="dungeon-tab tab-compare" data-dungeon="comparator" id="tab-comparator" onclick="switchDungeon('comparator')">
+        <span class="tab-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        </span>
+        <div class="tab-text">
+          <span class="tab-title">Comparador de Rentabilidad</span>
+          <span class="tab-subtitle">Tiempo vs Kamas vs XP/Hora</span>
+        </div>
+        <span class="tab-badge compare-badge">Comparativa</span>
+      </button>
+    </nav>
+
+    <div class="db-profile-bar">
+      <div class="profile-selector-wrap">
+        <span class="db-icon">Perfil:</span>
+        <select id="profile-select" class="profile-select" title="Seleccionar perfil guardado"></select>
+      </div>
+      <div class="profile-btn-group">
+        <button type="button" id="btn-save-profile" class="btn-profile primary" title="Guardar cambios en el archivo de datos">Guardar</button>
+        <button type="button" id="btn-new-profile" class="btn-profile" title="Crear un nuevo perfil de configuración">Nuevo</button>
+        <button type="button" id="btn-duplicate-profile" class="btn-profile" title="Duplicar este perfil">Duplicar</button>
+        <button type="button" id="btn-rename-profile" class="btn-profile" title="Renombrar este perfil">Renombrar</button>
+        <button type="button" id="btn-delete-profile" class="btn-profile danger" title="Eliminar este perfil">Eliminar</button>
+        <button type="button" id="btn-export-profile" class="btn-profile" title="Exportar perfiles a JSON">Exportar</button>
+        <button type="button" id="btn-import-profile" class="btn-profile" title="Importar perfiles desde JSON">Importar</button>
+        <input type="file" id="import-file-input" accept=".json" style="display: none;" />
+      </div>
+      <div id="db-status-badge" class="db-status-badge">
+        Conectado a xp_sets.json
+      </div>
+    </div>
+
+    <section class="results-hero-grid" aria-label="Resultados de la Simulación">
+      <div class="kpi-card highlight-gold">
+        <div class="kpi-header">
+          <span class="kpi-title" id="kpi-title-199">Nivel 50 &rarr; 199</span>
+          <div class="kpi-icon">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/>
+            </svg>
+          </div>
+        </div>
+        <div class="kpi-value" id="kpi-rounds-199">0</div>
+        <div class="kpi-subtext">
+          <span class="badge-pill">Rondas Requeridas</span>
+          <span id="kpi-subtext-199">3.685 MM XP</span>
+        </div>
+      </div>
+
+      <div class="kpi-card highlight-emerald">
+        <div class="kpi-header">
+          <span class="kpi-title" id="kpi-title-200">Nivel 199 &rarr; 200</span>
+          <div class="kpi-icon">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+            </svg>
+          </div>
+        </div>
+        <div class="kpi-value" id="kpi-rounds-200">0</div>
+        <div class="kpi-subtext">
+          <span class="badge-pill" style="background: rgba(28, 216, 146, 0.15); color: var(--emerald);">Tramo 199 a 200</span>
+          <span id="kpi-subtext-200">1.851 MM XP</span>
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <span class="kpi-title" id="kpi-title-total">Total Nivel 50 &rarr; 200</span>
+          <div class="kpi-icon">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+            </svg>
+          </div>
+        </div>
+        <div class="kpi-value" id="kpi-total-rounds">0</div>
+        <div class="kpi-subtext">
+          <span class="badge-pill">Rondas Totales</span>
+          <span id="kpi-subtext-total">5.536 MM XP</span>
+        </div>
+      </div>
+
+      <div class="kpi-card highlight-purple">
+        <div class="kpi-header">
+          <span class="kpi-title" id="kpi-title-resources">Tiempo y Recursos</span>
+          <div class="kpi-icon">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+            </svg>
+          </div>
+        </div>
+        <div class="kpi-value" id="kpi-total-time" style="font-size: 1.8rem;">0h 0m</div>
+        <div class="kpi-subtext" style="flex-direction: column; align-items: flex-start; gap: 4px;">
+          <div>
+            <span id="kpi-keys-label">Llaves Requeridas:</span>
+            <strong id="kpi-total-keys" style="color: var(--gold-light);">0</strong>
+          </div>
+          <div>
+            <span>Gasto Mula:</span>
+            <strong id="kpi-total-kamas-leech" style="color: var(--emerald);">0 K</strong>
+            <span style="font-size: 0.72rem; color: var(--text-dim);"> (<span id="kpi-kamas-per-m-xp">0 K</span> / M XP)</span>
+          </div>
+          <div style="font-size: 0.72rem; color: var(--text-dim);">
+            <span>Grupo (<span id="kpi-loot-display">B8</span>): </span>
+            <strong id="kpi-total-kamas-group" style="color: var(--text-muted);">0 K</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <main class="dashboard-grid">
+      
+      <aside class="sidebar-settings">
+        
+        <div class="panel-section">
+          <div class="panel-header">
+            <h2 class="panel-title">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+              </svg>
+              Composición de Grupo
+            </h2>
+            <span class="panel-badge badge-enutrof" id="group-loot-badge">Botín 7 (x4.2)</span>
+          </div>
+
+          <!-- Selector Manual de Botín B2 a B8 -->
+          <div class="control-group">
+            <div class="control-label">
+              <span>Tamaño del Grupo</span>
+              <span class="val-highlight" id="loot-selected-val">B7 (7 Jugadores)</span>
+            </div>
+            <div class="loot-btn-selector" role="group" aria-label="Seleccionar Botín de B2 a B8">
+              <button type="button" class="loot-btn" data-loot="2" title="Botín 2 (2 jugadores, mult x1.1)">B2</button>
+              <button type="button" class="loot-btn" data-loot="3" title="Botín 3 (3 jugadores, mult x1.5)">B3</button>
+              <button type="button" class="loot-btn" data-loot="4" title="Botín 4 (4 jugadores, mult x2.3)">B4</button>
+              <button type="button" class="loot-btn" data-loot="5" title="Botín 5 (5 jugadores, mult x3.1)">B5</button>
+              <button type="button" class="loot-btn" data-loot="6" title="Botín 6 (6 jugadores, mult x3.6)">B6</button>
+              <button type="button" class="loot-btn active" data-loot="7" title="Botín 7 (7 jugadores, mult x4.2)">B7</button>
+              <button type="button" class="loot-btn" data-loot="8" title="Botín 8 (8 jugadores, mult x4.7)">B8</button>
+            </div>
+          </div>
+
+          <div class="stepper-row">
+            <div class="control-group">
+              <label class="control-label" for="carry-count-input" title="Número de carries en el grupo (máximo 4 para mazmorras como Nidas o Reina)">
+                <span>Carries (1 a 4)</span>
+              </label>
+              <input type="number" id="carry-count-input" class="input-field" min="1" max="4" value="1" />
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="carry-level-input">
+                <span>Nivel Carry</span>
+              </label>
+              <input type="number" id="carry-level-input" class="input-field" min="1" max="200" value="200" />
+            </div>
+          </div>
+
+          <div class="stepper-row">
+            <div class="control-group">
+              <label class="control-label" for="leech-count-input">
+                <span>Mulas (Leeches)</span>
+              </label>
+              <input type="number" id="leech-count-input" class="input-field" min="1" max="7" value="6" />
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="total-players-input">
+                <span>Total en Grupo</span>
+              </label>
+              <input type="number" id="total-players-input" class="input-field" min="2" max="8" value="7" />
+            </div>
+          </div>
+
+          <!-- Nivel Actual del Personaje (Solo escribirlo) -->
+          <div class="control-group" style="margin-top: 6px;">
+            <label class="control-label" for="start-level-input">
+              <span>Nivel Actual del PJ</span>
+              <span class="val-highlight" id="start-level-val">Nivel 67</span>
+            </label>
+            <input 
+              type="number" 
+              id="start-level-input" 
+              class="input-field" 
+              min="1" 
+              max="199" 
+              value="67" 
+              placeholder="Escribe el nivel actual (1 a 199)"
+            />
+          </div>
+
+          <!-- % de XP actual opcional (Solo escribirlo) -->
+          <div class="control-group">
+            <label class="control-label" for="current-xp-percent-input">
+              <span>% de XP Actual en el Nivel</span>
+              <span class="val-highlight" id="xp-percent-val">0%</span>
+            </label>
+            <input 
+              type="number" 
+              id="current-xp-percent-input" 
+              class="input-field" 
+              min="0" 
+              max="99" 
+              value="0" 
+              placeholder="0% a 99%"
+            />
+          </div>
+
+          <!-- Tabla de Niveles Individuales por Miembro del Grupo -->
+          <div class="control-group" style="margin-top: 14px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 12px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <label class="control-label" style="margin-bottom: 0;">
+                <span>Niveles de Cada Miembro</span>
+              </label>
+              <span id="group-tier-threshold-badge" class="panel-badge badge-enutrof" style="font-size: 0.70rem;">
+                Umbral 1/3: Lvl 67
+              </span>
+            </div>
+            <span style="font-size: 0.72rem; color: var(--text-dim); display: block; margin-bottom: 8px;">
+              Ajusta el nivel de cada slot. Se calcula la progresión del personaje de menor nivel.
+            </span>
+
+            <!-- Botones de Presets Rápidos -->
+            <div style="display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px;">
+              <button type="button" class="btn-preset" onclick="applyGroupPreset('malefisk_solo')" style="font-size: 0.69rem; padding: 4px 8px;">1 Carry (Lvl 200) + 7 Leeches (Lvl 50)</button>
+              <button type="button" class="btn-preset" onclick="applyGroupPreset('malefisk_mix')" style="font-size: 0.69rem; padding: 4px 8px;">1 Carry (Lvl 200) + Mixto (Lvl 100 y 50)</button>
+              <button type="button" class="btn-preset" onclick="applyGroupPreset('classic_4_carries')" style="font-size: 0.69rem; padding: 4px 8px;">4 Carries (Lvl 200) + 4 Leeches (Lvl 50)</button>
+              <button type="button" class="btn-preset" onclick="applyGroupPreset('all_equal')" style="font-size: 0.69rem; padding: 4px 8px;">Acompañantes en Lvl 50</button>
+            </div>
+
+            <div id="slots-grid-container" class="slots-grid">
+              <!-- Renderizado dinámico de slots 1 a N -->
+            </div>
+
+            <!-- Banner Resumen del Grupo y Regla del Tercio -->
+            <div id="group-composition-summary" class="member-calc-banner">
+              <!-- Información en tiempo real -->
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-section">
+          <div class="panel-header">
+            <h2 class="panel-title">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
+              </svg>
+              Bonificaciones de Combate
+            </h2>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label">Multiplicador de Cuenta</label>
+            <div class="pill-selector">
+              <button type="button" class="pill-btn active" data-mult="1">x1</button>
+              <button type="button" class="pill-btn" data-mult="2">x2</button>
+              <button type="button" class="pill-btn" data-mult="3">x3</button>
+              <button type="button" class="pill-btn" data-mult="4">x4</button>
+            </div>
+          </div>
+
+          <div class="switch-item">
+            <div class="switch-info">
+              <span class="switch-title">
+                Bonus de Gremio
+                <span id="guild-status-badge" class="panel-badge">INACTIVO (0%)</span>
+              </span>
+              <span class="switch-desc">+50% fijo</span>
+            </div>
+            <label class="toggle-switch" for="guild-toggle">
+              <input type="checkbox" id="guild-toggle" />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <!-- Pergamino Permanente de Sabiduría -->
+          <div class="switch-item">
+            <div class="switch-info">
+              <span class="switch-title">
+                Pergamino de Sabiduría
+                <span id="scroll-status-badge" class="guild-active-badge">+80</span>
+              </span>
+              <span class="switch-desc">Pergamino permanente (máx. 100)</span>
+            </div>
+            <label class="toggle-switch" for="scroll-toggle">
+              <input type="checkbox" id="scroll-toggle" checked />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label" for="scroll-input">Valor Pergamino</label>
+            <input type="number" id="scroll-input" class="input-field" value="80" min="0" max="100" />
+          </div>
+
+          <!-- Consumible de Sabiduría -->
+          <div class="switch-item" style="background: rgba(245, 184, 61, 0.05); border-color: rgba(245, 184, 61, 0.2);">
+            <div class="switch-info">
+              <span class="switch-title" style="color: var(--gold-light);">
+                Consumible de Sabiduría
+                <span id="consumable-status-badge" class="guild-active-badge" style="background: rgba(245, 184, 61, 0.2); border-color: rgba(245, 184, 61, 0.4); color: var(--gold-light);">+30</span>
+              </span>
+              <span class="switch-desc">Caramelo o poción temporal</span>
+            </div>
+            <label class="toggle-switch" for="consumable-toggle">
+              <input type="checkbox" id="consumable-toggle" checked />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label" for="consumable-input">Sabiduría del Consumible</label>
+            <input type="number" id="consumable-input" class="input-field" value="30" min="0" max="300" />
+          </div>
+
+          <!-- Poción de Experiencia (+% XP) -->
+          <div class="switch-item" style="background: rgba(168, 85, 247, 0.06); border-color: rgba(168, 85, 247, 0.25);">
+            <div class="switch-info">
+              <span class="switch-title" style="color: #c084fc;">
+                Poción de Experiencia
+                <span id="xp-potion-status-badge" class="guild-active-badge" style="background: rgba(168, 85, 247, 0.2); border-color: rgba(168, 85, 247, 0.4); color: #d8b4fe;">+200%</span>
+              </span>
+              <span class="switch-desc">Pócima de experiencia (+% por 1h)</span>
+            </div>
+            <label class="toggle-switch" for="xp-potion-toggle">
+              <input type="checkbox" id="xp-potion-toggle" checked />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div class="control-group">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+              <label class="control-label" for="xp-potion-input" style="margin-bottom: 0;">Valor Bonus Poción (%)</label>
+              <div style="display: flex; gap: 4px;">
+                <button type="button" class="btn-preset" onclick="setXpPotionPreset(50)" style="font-size: 0.65rem; padding: 2px 5px;">+50%</button>
+                <button type="button" class="btn-preset" onclick="setXpPotionPreset(100)" style="font-size: 0.65rem; padding: 2px 5px;">+100%</button>
+                <button type="button" class="btn-preset" onclick="setXpPotionPreset(200)" style="font-size: 0.65rem; padding: 2px 5px;">+200%</button>
+              </div>
+            </div>
+            <input type="number" id="xp-potion-input" class="input-field" value="200" min="0" max="500" step="10" />
+          </div>
+
+          <div class="control-group">
+            <div class="control-label">
+              <span>Retos de Combate</span>
+              <span class="val-highlight" id="retos-val">+80%</span>
+            </div>
+            <div style="display: flex; gap: 12px; align-items: center;">
+              <input type="range" id="retos-range" class="range-slider" min="0" max="300" step="5" value="80" />
+              <input type="number" id="retos-input" class="input-field" style="width: 75px;" min="0" max="300" value="80" />
+            </div>
+            <div id="total-combat-bonus-hint" style="font-size: 0.70rem; color: #a78bfa; margin-top: 5px; line-height: 1.3;">
+              Total combate: +280% (80% retos + 200% poción)
+            </div>
+          </div>
+
+          <div class="control-group">
+            <div class="control-label">
+              <span>Bonus de Zona</span>
+              <span class="val-highlight" id="zona-val">+0%</span>
+            </div>
+            <div style="display: flex; gap: 12px; align-items: center;">
+              <input type="range" id="zona-range" class="range-slider" min="0" max="150" step="5" value="0" />
+              <input type="number" id="zona-input" class="input-field" style="width: 75px;" min="0" max="150" value="0" />
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label" for="time-input">
+              <span>Tiempo Estimado por Ronda</span>
+              <span style="font-size: 0.8rem; color: var(--text-dim);">(minutos)</span>
+            </label>
+            <input type="number" id="time-input" class="input-field" min="0.5" max="30" step="0.5" value="2.5" />
+          </div>
+
+          <div class="control-group">
+            <label class="control-label" for="key-cost-input">
+              <span>Coste de Llave (Kamas)</span>
+              <span style="font-size: 0.8rem; color: var(--text-dim);">(por unidad)</span>
+            </label>
+            <input type="number" id="key-cost-input" class="input-field" min="0" max="1000000" step="500" value="3000" />
+          </div>
+        </div>
+      </aside>
+
+      <section class="main-content">
+        
+        <!-- Editor de Niveles Específicos Personalizados -->
+        <div class="panel-section">
+          <div class="panel-header" style="flex-direction: column; align-items: flex-start; gap: 10px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; width: 100%; flex-wrap: wrap; gap: 10px;">
+              <div>
+                <h2 class="panel-title">
+                  <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/>
+                  </svg>
+                  Configuración de Sabiduría: Set 1 vs Set 2
+                </h2>
+                <span style="font-size: 0.82rem; color: var(--text-dim); display: block; margin-top: 3px;">
+                  Compara dos configuraciones de equipo por nivel para evaluar la diferencia de experiencia y optimización de tiempo.
+                </span>
+              </div>
+              <span class="panel-badge badge-emerald">Comparativa Set 1 vs 2</span>
+            </div>
+
+            <!-- Selector de Set Activo para la Simulación Principal -->
+            <div class="set-toggle-wrapper" style="width: 100%; margin-top: 10px; margin-bottom: 0;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="font-size: 0.78rem; font-weight: 700; color: var(--gold-light); letter-spacing: 0.5px;">Set Activo para Cálculos:</span>
+                <span style="font-size: 0.75rem; color: var(--text-dim);">Define el conjunto utilizado en la simulación principal</span>
+              </div>
+              <div class="set-toggle-buttons">
+                <button type="button" class="btn-set-pill active-set1" id="btn-set-pill-1" data-set="1" onclick="setActiveWisdomSet(1)">
+                  Set 1 (Base)
+                </button>
+                <button type="button" class="btn-set-pill" id="btn-set-pill-2" data-set="2" onclick="setActiveWisdomSet(2)">
+                  Set 2 (Optimizado)
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Resumen Global de Comparación Set 1 vs Set 2 (Ahorro y Rentabilidad) -->
+          <div id="set-comparison-summary" class="set-comparison-card" style="margin-top: 14px; margin-bottom: 14px;">
+            <!-- Se llena dinámicamente con renderSpecificLevelsTable() -->
+          </div>
+
+          <!-- Asignación Automática de Stats (Full Sab) Toggle -->
+          <div class="switch-item" style="background: rgba(28, 216, 146, 0.05); border-color: rgba(28, 216, 146, 0.25); margin-bottom: 16px;">
+            <div class="switch-info">
+              <span class="switch-title" style="color: var(--emerald);">
+                Inversión Automática de Puntos (Sabiduría)
+                <span class="panel-badge badge-emerald">ACTIVO</span>
+              </span>
+              <span class="switch-desc">
+                Asigna automáticamente el capital de puntos a sabiduría en cada nivel subido (5 puntos por nivel &bull; coste 3 a 1: <code>&lfloor;(Nivel - 1) &times; 5 / 3&rfloor;</code>).
+              </span>
+            </div>
+            <label class="toggle-switch" for="auto-stats-toggle">
+              <input type="checkbox" id="auto-stats-toggle" checked />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div id="manual-base-row" class="control-group" style="display: none; margin-bottom: 14px;">
+            <label class="control-label" for="manual-base-input">Puntos Base Manuales de Sabiduría</label>
+            <input type="number" id="manual-base-input" class="input-field" value="0" min="0" max="600" />
+          </div>
+
+          <!-- Formulario Directo para Añadir tus Propios Niveles Específicos con Set 1 y Set 2 -->
+          <form class="add-tier-form" onsubmit="event.preventDefault(); addNewSpecificLevel();">
+            <div style="display: flex; flex-direction: column; gap: 3px; min-width: 100px;">
+              <span style="font-size: 0.72rem; color: var(--gold-light); font-weight: 700; letter-spacing: 0.5px;">NIVEL</span>
+              <input type="number" id="custom-level-input" placeholder="Ej. 60, 80..." min="1" max="200" required />
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 3px; min-width: 130px;">
+              <span style="font-size: 0.72rem; color: #93c5fd; font-weight: 700; letter-spacing: 0.5px;">SABIDURÍA SET 1</span>
+              <input type="number" id="custom-wisdom-input" class="tier-input-set1" placeholder="Ej. 378" min="0" max="1500" required />
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 3px; min-width: 130px;">
+              <span style="font-size: 0.72rem; color: #6ee7b7; font-weight: 700; letter-spacing: 0.5px;">SABIDURÍA SET 2</span>
+              <input type="number" id="custom-wisdom2-input" class="tier-input-set2" placeholder="Ej. 410 (o igual)" min="0" max="1500" />
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 3px; flex: 1; min-width: 180px;">
+              <span style="font-size: 0.72rem; color: var(--text-dim); font-weight: 700; letter-spacing: 0.5px;">DESCRIPCIÓN (OPCIONAL)</span>
+              <input type="text" id="custom-note-input" placeholder="Ej. Set Nivel 60, etc." />
+            </div>
+            <button type="submit" class="btn-add-tier">
+              <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+              </svg>
+              Añadir Nivel
+            </button>
+          </form>
+
+          <!-- Tabla de Niveles Específicos Personalizados (Set 1 vs Set 2) -->
+          <div class="tier-table-wrapper" style="margin-bottom: 12px;">
+            <table class="tier-table" aria-label="Tabla de Niveles Específicos Personalizados">
+              <thead>
+                <tr>
+                  <th style="width: 80px;">Nivel</th>
+                  <th style="width: 110px; color: #93c5fd;">Set 1 (Base)</th>
+                  <th style="width: 110px; color: #6ee7b7;">Set 2 (Optimizado)</th>
+                  <th style="width: 95px;">Δ Diferencia</th>
+                  <th style="width: 100px;">Ventaja XP</th>
+                  <th style="width: 105px;">Stats Base</th>
+                  <th style="width: 110px;">Rango Activo</th>
+                  <th>Descripción</th>
+                  <th style="width: 50px; text-align: right;">Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="specific-levels-tbody">
+                <!-- Se llena dinámicamente con JavaScript -->
+              </tbody>
+            </table>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-top: 8px;">
+            <div style="font-size: 0.76rem; color: var(--text-dim); display: flex; align-items: center; gap: 8px;">
+              <span style="color: var(--emerald);">Guardado automático activo</span>
+              <span>&bull;</span>
+              <span>Haz clic en el número de nivel o sabiduría para editarlos directamente.</span>
+            </div>
+            <div style="display: flex; gap: 8px; align-items: center;">
+              <button type="button" onclick="restoreMasterWisdomSets()" class="btn-profile primary" style="font-size: 0.75rem; padding: 5px 12px;" title="Cargar los conjuntos de sabiduría predefinidos desde xp_sets.json (Nivel 50 a 199)">
+                Restablecer Conjuntos (xp_sets.json)
+              </button>
+              <button type="button" onclick="clearAllSpecificLevels()" style="background: transparent; border: none; color: var(--text-dim); font-size: 0.75rem; cursor: pointer; text-decoration: underline;">
+                Vaciar lista
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="progress-container">
+          <div class="progress-header">
+            <strong style="color: var(--text-gold);">Distribución del Esfuerzo de Leveo</strong>
+            <span style="font-size: 0.8rem; color: var(--text-dim);" id="progress-subtext">Nivel 67-199 vs 199-200</span>
+          </div>
+          <div class="progress-track">
+            <div id="progress-bar-to-199" class="progress-bar-to-199" style="width: 65%;"></div>
+            <div id="progress-bar-199-200" class="progress-bar-199-200" style="width: 35%;"></div>
+          </div>
+          <div class="progress-legend">
+            <div class="legend-item">
+              <span class="legend-dot gold"></span>
+              <span id="progress-legend-label-199">67 &rarr; 199: <strong id="progress-pct-199" style="color: var(--gold-light);">0%</strong></span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-dot emerald"></span>
+              <span>199 &rarr; 200: <strong id="progress-pct-200" style="color: var(--emerald);">0%</strong></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-section">
+          <div class="panel-header" style="flex-direction: column; align-items: flex-start; gap: 10px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; flex-wrap: wrap; gap: 10px;">
+              <div>
+                <h2 class="panel-title">
+                  <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z"/>
+                  </svg>
+                  Progresión y Tiempos Acumulados (Comparativa Set 1 vs Set 2)
+                </h2>
+                <span style="font-size: 0.8rem; color: var(--text-dim); display: block; margin-top: 2px;">
+                  Proyección por combates y tiempo estimado según la sabiduría de cada configuración.
+                </span>
+              </div>
+              
+              <!-- Selector de vista en la tabla de progresión -->
+              <div class="set-toggle-buttons">
+                <button type="button" class="btn-set-pill active-set1" id="prog-view-compare" onclick="setProgressionView('compare')">
+                  Comparar (Set 1 vs Set 2)
+                </button>
+                <button type="button" class="btn-set-pill" id="prog-view-set1" onclick="setProgressionView('set1')">
+                  Solo Set 1
+                </button>
+                <button type="button" class="btn-set-pill" id="prog-view-set2" onclick="setProgressionView('set2')">
+                  Solo Set 2
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="milestones-table-wrapper">
+            <table class="milestones-table" aria-label="Tabla de Progresión por Hitos de Nivel">
+              <thead id="milestones-thead">
+                <!-- Se llena dinámicamente con JavaScript según el modo seleccionado -->
+              </thead>
+              <tbody id="milestones-tbody">
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="panel-section">
+          <div class="panel-header">
+            <h2 class="panel-title" id="dungeon-mobs-heading">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/>
+              </svg>
+              Monstruos: Fábrica de Malefíscof
+            </h2>
+            <span class="panel-badge badge-enutrof" id="dungeon-mobs-badge">40 Monstruos &bull; 966.900 XP Base</span>
+          </div>
+
+          <div class="mobs-grid" id="mobs-grid">
+            <!-- Renderizado dinámicamente con JavaScript -->
+          </div>
+
+          <!-- Tabla Detallada de Monstruos y Experiencia por Rango -->
+          <div class="mobs-table-section">
+            <div class="mobs-table-header">
+              <h3 class="mobs-table-subtitle">Tabla Técnica de Monstruos y Experiencia por Rango</h3>
+              <span class="mobs-table-hint">Valores editables en <code>js/data/dungeonsData.js</code> para ajustes durante la Beta</span>
+            </div>
+            <div class="mobs-table-wrapper">
+              <table class="mobs-data-table" id="mobs-data-table">
+                <thead>
+                  <tr>
+                    <th>Monstruo</th>
+                    <th style="width: 140px;">Rol</th>
+                    <th style="width: 110px;">Nivel</th>
+                    <th style="width: 120px;">XP Rango 1</th>
+                    <th style="width: 120px;">XP Rango Máx</th>
+                    <th style="width: 140px;">XP Base Usada</th>
+                    <th>Escala de XP &bull; Observaciones Beta</th>
+                  </tr>
+                </thead>
+                <tbody id="mobs-table-tbody">
+                  <!-- Renderizado dinámicamente con JavaScript -->
+                </tbody>
+                <tfoot id="mobs-table-tfoot">
+                  <!-- Resumen total de oleada -->
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </section>
+    </main>
+
+    <!-- Vista Comparador de Rentabilidad (Malefíscof vs Rey Nidas vs Reina de los Ladrones) -->
+    <section id="comparator-section" class="comparator-section" style="display: none;">
+      <div class="comparator-hero-banner">
+        <div class="comparator-title-area">
+          <span class="compare-tag">ANÁLISIS DE RENTABILIDAD</span>
+          <h2>Comparativa de Rendimiento &bull; Malefíscof vs Nidas vs Reina vs Venerable</h2>
+          <p>
+            Análisis de tiempo estimado, coste de llaves, estructura de grupo y tasa horaria (XP/hora) para tu nivel con las configuraciones activas.
+          </p>
+        </div>
+        <div class="comparator-quick-stats" id="comparator-quick-stats">
+          <!-- Tarjetas resumen generadas dinámicamente -->
+        </div>
+      </div>
+
+      <div class="panel-section">
+        <div class="panel-header">
+          <h2 class="panel-title">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+            </svg>
+            Tabla Comparativa de Rendimiento (Botín 8)
+          </h2>
+          <span class="panel-badge badge-emerald">Cálculo en Vivo</span>
+        </div>
+
+        <div class="milestones-table-wrapper">
+          <table class="milestones-table comparison-table" id="comparison-table">
+            <thead>
+              <tr>
+                <th style="width: 220px;">Parámetro</th>
+                <th style="width: 19%;">Fábrica de Malefíscof (Lvl 100)</th>
+                <th style="width: 19%;">Palacio del Rey Nidas (Lvl 200)</th>
+                <th style="width: 19%;">Trono de la Corte Tenebrosa (Lvl 200)</th>
+                <th style="width: 19%;">Coto del Venerable (Lvl 200)</th>
+              </tr>
+            </thead>
+            <tbody id="comparator-tbody">
+              <!-- Renderizado dinámicamente por JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p id="footer-text">Calculadora de XP Dofus Unity &bull; Malefíscof &bull; Rey Nidas &bull; Reina de los Ladrones &bull; Coto del Venerable</p>
+    </footer>
+  </div>
+
+  <script src="js/data/xpTable.js"></script>
+  <script src="js/data/dungeonsData.js"></script>
+  <script src="js/data/wisdomSetsData.js"></script>
+  <script src="js/engine/database.js"></script>
+  <script src="js/engine/simulator.js"></script>
+  <script src="js/ui/renderer.js"></script>
+  <script src="js/ui/events.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

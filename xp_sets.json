@@ -1,0 +1,423 @@
+{
+  "version": "1.0",
+  "app": "Calculadora XP Dofus Unity",
+  "exportedAt": "2026-09-27T02:06:46.205Z",
+  "activeProfileId": "prof_1788918086710_a0xwj",
+  "profiles": [
+    {
+      "id": "prof_1788918086710_a0xwj",
+      "name": "Configuración Principal",
+      "createdAt": "2026-09-09T01:41:26.710Z",
+      "updatedAt": "2026-09-27T02:06:46.053Z",
+      "settings": {
+        "activeDungeon": "malefisk",
+        "activeWisdomSet": 1,
+        "dungeonConfigs": {
+          "malefisk": {
+            "totalPlayers": 8,
+            "carryCount": 1,
+            "carryLevel": 200,
+            "timePerRunMinutes": 2.5,
+            "keyCostKamas": 3000,
+            "groupMembers": [
+              {
+                "slot": 1,
+                "level": 200,
+                "role": "carry",
+                "name": "Carry"
+              },
+              {
+                "slot": 2,
+                "level": 50,
+                "role": "leech",
+                "name": "Mula 1"
+              },
+              {
+                "slot": 3,
+                "level": 50,
+                "role": "leech",
+                "name": "Mula 2"
+              },
+              {
+                "slot": 4,
+                "level": 50,
+                "role": "leech",
+                "name": "Mula 3"
+              },
+              {
+                "slot": 5,
+                "level": 50,
+                "role": "leech",
+                "name": "Mula 4"
+              },
+              {
+                "slot": 6,
+                "level": 50,
+                "role": "leech",
+                "name": "Mula 5"
+              },
+              {
+                "slot": 7,
+                "level": 50,
+                "role": "leech",
+                "name": "Mula 6"
+              },
+              {
+                "slot": 8,
+                "level": 50,
+                "role": "target",
+                "name": "Mula Objetivo"
+              }
+            ]
+          },
+          "nidas": {
+            "totalPlayers": 8,
+            "carryCount": 4,
+            "carryLevel": 200,
+            "timePerRunMinutes": 10,
+            "keyCostKamas": 35000,
+            "groupMembers": [
+              {
+                "slot": 1,
+                "level": 200,
+                "role": "carry",
+                "name": "Carry 1"
+              },
+              {
+                "slot": 2,
+                "level": 200,
+                "role": "carry",
+                "name": "Carry 2"
+              },
+              {
+                "slot": 3,
+                "level": 200,
+                "role": "carry",
+                "name": "Carry 3"
+              },
+              {
+                "slot": 4,
+                "level": 200,
+                "role": "carry",
+                "name": "Carry 4"
+              },
+              {
+                "slot": 5,
+                "level": 50,
+                "role": "leech",
+                "name": "Mula 1"
+              },
+              {
+                "slot": 6,
+                "level": 50,
+                "role": "leech",
+                "name": "Mula 2"
+              },
+              {
+                "slot": 7,
+                "level": 50,
+                "role": "leech",
+                "name": "Mula 3"
+              },
+              {
+                "slot": 8,
+                "level": 50,
+                "role": "target",
+                "name": "Mula Objetivo"
+              }
+            ]
+          },
+          "reina": {
+            "totalPlayers": 8,
+            "carryCount": 4,
+            "carryLevel": 200,
+            "timePerRunMinutes": 10,
+            "keyCostKamas": 60000,
+            "groupMembers": [
+              {
+                "slot": 1,
+                "level": 200,
+                "role": "carry",
+                "name": "Carry 1"
+              },
+              {
+                "slot": 2,
+                "level": 200,
+                "role": "carry",
+                "name": "Carry 2"
+              },
+              {
+                "slot": 3,
+                "level": 200,
+                "role": "carry",
+                "name": "Carry 3"
+              },
+              {
+                "slot": 4,
+                "level": 200,
+                "role": "carry",
+                "name": "Carry 4"
+              },
+              {
+                "slot": 5,
+                "level": 50,
+                "role": "leech",
+                "name": "Mula 1"
+              },
+              {
+                "slot": 6,
+                "level": 50,
+                "role": "leech",
+                "name": "Mula 2"
+              },
+              {
+                "slot": 7,
+                "level": 50,
+                "role": "leech",
+                "name": "Mula 3"
+              },
+              {
+                "slot": 8,
+                "level": 50,
+                "role": "target",
+                "name": "Mula Objetivo"
+              }
+            ]
+          },
+          "venerable": {
+            "totalPlayers": 8,
+            "carryCount": 4,
+            "carryLevel": 200,
+            "timePerRunMinutes": 10,
+            "keyCostKamas": 40000,
+            "groupMembers": [
+              {
+                "slot": 1,
+                "level": 200,
+                "role": "carry",
+                "name": "Carry 1"
+              },
+              {
+                "slot": 2,
+                "level": 200,
+                "role": "carry",
+                "name": "Carry 2"
+              },
+              {
+                "slot": 3,
+                "level": 200,
+                "role": "carry",
+                "name": "Carry 3"
+              },
+              {
+                "slot": 4,
+                "level": 200,
+                "role": "carry",
+                "name": "Carry 4"
+              },
+              {
+                "slot": 5,
+                "level": 50,
+                "role": "leech",
+                "name": "Mula 1"
+              },
+              {
+                "slot": 6,
+                "level": 50,
+                "role": "leech",
+                "name": "Mula 2"
+              },
+              {
+                "slot": 7,
+                "level": 50,
+                "role": "leech",
+                "name": "Mula 3"
+              },
+              {
+                "slot": 8,
+                "level": 50,
+                "role": "target",
+                "name": "Mula Objetivo"
+              }
+            ]
+          }
+        },
+        "totalPlayers": 8,
+        "carryCount": 1,
+        "carryLevel": 200,
+        "leechCount": 7,
+        "startLevel": 50,
+        "currentXpPercent": 0,
+        "accountMultiplier": 4,
+        "guildBonusActive": true,
+        "scrollActive": true,
+        "scrollWisdom": 100,
+        "consumableActive": true,
+        "consumableWisdom": 30,
+        "xpPotionActive": false,
+        "xpPotionPercent": 200,
+        "progressionView": "set1",
+        "autoStatsWisdom": true,
+        "manualBaseWisdom": 0,
+        "challengesBonus": 80,
+        "zoneBonus": 50,
+        "timePerRunMinutes": 2.5,
+        "keyCostKamas": 3000,
+        "groupMembers": [
+          {
+            "slot": 1,
+            "level": 200,
+            "role": "carry",
+            "name": "Carry"
+          },
+          {
+            "slot": 2,
+            "level": 50,
+            "role": "leech",
+            "name": "Mula 1"
+          },
+          {
+            "slot": 3,
+            "level": 50,
+            "role": "leech",
+            "name": "Mula 2"
+          },
+          {
+            "slot": 4,
+            "level": 50,
+            "role": "leech",
+            "name": "Mula 3"
+          },
+          {
+            "slot": 5,
+            "level": 50,
+            "role": "leech",
+            "name": "Mula 4"
+          },
+          {
+            "slot": 6,
+            "level": 50,
+            "role": "leech",
+            "name": "Mula 5"
+          },
+          {
+            "slot": 7,
+            "level": 50,
+            "role": "leech",
+            "name": "Mula 6"
+          },
+          {
+            "slot": 8,
+            "level": 50,
+            "role": "target",
+            "name": "Mula Objetivo"
+          }
+        ]
+      },
+      "specificLevels": [
+        {
+          "level": 50,
+          "gearWisdom": 303,
+          "gearWisdom2": 318,
+          "note": "Set Nivel 50 / Beta"
+        },
+        {
+          "level": 60,
+          "gearWisdom": 363,
+          "gearWisdom2": 378,
+          "note": "Set Nivel 60 / Beta"
+        },
+        {
+          "level": 66,
+          "gearWisdom": 383,
+          "gearWisdom2": 398,
+          "note": "Set Nivel 70 / Beta"
+        },
+        {
+          "level": 71,
+          "gearWisdom": 390,
+          "gearWisdom2": 405,
+          "note": "Set Nivel 71 / Beta"
+        },
+        {
+          "level": 80,
+          "gearWisdom": 397,
+          "gearWisdom2": 412,
+          "note": "Set Nivel 80 / Beta"
+        },
+        {
+          "level": 98,
+          "gearWisdom": 405,
+          "gearWisdom2": 420,
+          "note": "Set Nivel 98 / Beta"
+        },
+        {
+          "level": 100,
+          "gearWisdom": 405,
+          "gearWisdom2": 450,
+          "note": "Set Nivel 100 / Beta"
+        },
+        {
+          "level": 109,
+          "gearWisdom": 417,
+          "gearWisdom2": 462,
+          "note": "Set Nivel 109 / Beta"
+        },
+        {
+          "level": 113,
+          "gearWisdom": 451,
+          "gearWisdom2": 496,
+          "note": "Set Nivel 113 / Beta"
+        },
+        {
+          "level": 120,
+          "gearWisdom": 471,
+          "gearWisdom2": 516,
+          "note": "Set Nivel 120 / Beta"
+        },
+        {
+          "level": 127,
+          "gearWisdom": 476,
+          "gearWisdom2": 521,
+          "note": "Set Nivel 127 / Beta"
+        },
+        {
+          "level": 136,
+          "gearWisdom": 483,
+          "gearWisdom2": 528,
+          "note": "Set Nivel 136 / Beta"
+        },
+        {
+          "level": 150,
+          "gearWisdom": 510,
+          "gearWisdom2": 615,
+          "note": "Set Nivel 150 / Beta"
+        },
+        {
+          "level": 161,
+          "gearWisdom": 533,
+          "gearWisdom2": 638,
+          "note": "Set Nivel 161 / Beta"
+        },
+        {
+          "level": 181,
+          "gearWisdom": 540,
+          "gearWisdom2": 645,
+          "note": "Set Nivel 181 / Beta"
+        },
+        {
+          "level": 194,
+          "gearWisdom": 570,
+          "gearWisdom2": 675,
+          "note": "Set Nivel 194 / Beta"
+        },
+        {
+          "level": 199,
+          "gearWisdom": 653,
+          "gearWisdom2": 758,
+          "note": "Set Nivel 199 / Beta"
+        }
+      ]
+    }
+  ]
+}
